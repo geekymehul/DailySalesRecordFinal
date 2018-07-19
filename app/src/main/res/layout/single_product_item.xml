@@ -81,13 +81,24 @@
             android:textSize="16sp" />
 
         <TextView
+            android:id="@+id/single_product_subcat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp"
+            android:text="subcategory"
+            android:textSize="16sp"
+            />
+
+        <TextView
             android:id="@+id/single_product_notes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="5dp"
-            android:text="stock left"
+            android:text="notes"
             android:textSize="16sp"
             android:visibility="gone" />
 

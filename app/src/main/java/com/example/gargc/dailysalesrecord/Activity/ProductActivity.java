@@ -21,6 +21,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
+import org.w3c.dom.Text;
+
 public class ProductActivity extends AppCompatActivity
 {
     private RecyclerView productList;
@@ -76,6 +78,11 @@ public class ProductActivity extends AppCompatActivity
                 viewHolder.stock.setText("Stock left "+model.getStock()+" "+model.getQuantity());
                 viewHolder.notes.setText(model.getNotes());
 
+                if(!model.getSubcategory().equals(""))
+                    viewHolder.subcat.setText(model.getSubcategory());
+                else
+                    viewHolder.subcat.setVisibility(View.GONE);
+
                 if(!model.getImage().equals("none"))
                     Picasso.with(getApplicationContext()).load(model.getImage()).into(viewHolder.img);
 
@@ -121,7 +128,7 @@ public class ProductActivity extends AppCompatActivity
 
     public static class ProductViewHolder extends RecyclerView.ViewHolder
     {
-        TextView sku,stock,sp,ap,name,notes;
+        TextView sku,stock,sp,ap,name,notes,subcat;
         ImageView img,edit,delete;
         LinearLayout container;
 
@@ -139,6 +146,8 @@ public class ProductActivity extends AppCompatActivity
             img = (ImageView)itemView.findViewById(R.id.single_product_img);
             edit = (ImageView)itemView.findViewById(R.id.single_product_edit);
             delete = (ImageView)itemView.findViewById(R.id.single_product_delete);
+            subcat = (TextView) itemView.findViewById(R.id.single_product_subcat);
+
         }
 
     }
