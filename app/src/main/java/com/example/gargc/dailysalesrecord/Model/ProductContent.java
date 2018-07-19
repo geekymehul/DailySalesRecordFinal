@@ -3,7 +3,15 @@ package com.example.gargc.dailysalesrecord.Model;
 
 public class ProductContent
 {
-    private String name,selling_price,actual_price,quantity,image,currency,stock,sku,notes;
+    private String name,selling_price,actual_price,quantity,image,currency,stock,sku,notes,subcategory;
+
+    public String getSubcategory() {
+        return subcategory;
+    }
+
+    public void setSubcategory(String subcategory) {
+        this.subcategory = subcategory;
+    }
 
     public String getName() {
         return name;

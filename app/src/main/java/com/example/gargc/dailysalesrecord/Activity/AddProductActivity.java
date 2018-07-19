@@ -54,6 +54,7 @@ public class AddProductActivity extends AppCompatActivity
         edt_sku = (EditText)findViewById(R.id.add_pro_edt_sku);
         btn_img = (ImageView)findViewById(R.id.add_pro_btn_img);
         btn_add = (Button)findViewById(R.id.add_pro_btn_add);
+        edt_subcat = (EditText)findViewById(R.id.add_pro_edt_subcat);
 
         btn_img.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,6 +78,7 @@ public class AddProductActivity extends AppCompatActivity
                 final String sku = edt_sku.getText().toString();
                 final String stock = edt_stock.getText().toString();
                 final String qty = edt_qty.getText().toString();
+                final String subcat = edt_subcat.getText().toString();
                 final String notes = edt_notes.getText().toString();
 
                 if(TextUtils.isEmpty(actual) || TextUtils.isEmpty(sell) || TextUtils.isEmpty(name) || TextUtils.isEmpty(currency) ||
@@ -110,6 +112,7 @@ public class AddProductActivity extends AppCompatActivity
                                 info.child("stock").setValue(stock);
                                 info.child("sku").setValue(sku);
                                 info.child("notes").setValue(notes);
+                                info.child("subcategory").setValue(subcat);
 
                                 Toast.makeText(AddProductActivity.this, "Product added", Toast.LENGTH_SHORT).show();
                                 mProgress.dismiss();
@@ -128,6 +131,7 @@ public class AddProductActivity extends AppCompatActivity
                         info.child("stock").setValue(stock);
                         info.child("sku").setValue(sku);
                         info.child("notes").setValue(notes);
+                        info.child("subcategory").setValue(subcat);
 
                         Toast.makeText(AddProductActivity.this, "Product added", Toast.LENGTH_SHORT).show();
                         mProgress.dismiss();
