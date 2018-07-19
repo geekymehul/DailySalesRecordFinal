@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.gargc.dailysalesrecord.Activity.Sales.AddProducts">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="fill_parent"
+            android:id="@+id/table1"
+            android:layout_height="fill_parent">
+
+            <TableRow>
+
+                <TextView
+                    android:text="Product"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_margin="10dp"
+                    android:layout_column="1" />
+
+                <Button
+                    android:id="@+id/buttonProduct"
+                    android:background="@null"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:text="List of Products"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="50dp"
+                    android:layout_column="2">
+
+                </Button>
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <View
+                    android:layout_column="2"
+                    android:layout_width="30dp"
+                    android:layout_height="1dip"
+                    android:layout_weight="1"
+                    android:background="#FF909090" />
+            </TableRow>
+
+            <TableRow android:layout_marginTop="5dp">
+
+                <TextView
+                    android:text="Quantity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_margin="10dp"
+                    android:layout_column="1" />
+
+                <EditText
+                    android:id="@+id/quantityedittext"
+                    android:layout_marginLeft="50dp"
+                    android:hint="Enter number of Quantity "
+                    android:inputType="number"
+                    android:layout_column="2">
+
+                </EditText>
+            </TableRow>
+
+            <TableRow android:layout_marginTop="5dp">
+
+                <TextView
+                    android:text="Selling Price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_margin="10dp"
+                    android:layout_column="1" />
+
+                <TextView
+                    android:text="Actual Price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_margin="10dp"
+                    android:layout_column="2" />
+
+            </TableRow>
+
+            <TableRow android:layout_marginTop="5dp">
+
+                <TextView
+                    android:hint="Selling Price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/emphasis"
+                    android:id="@+id/productsellingprice"
+                    android:layout_margin="10dp"
+                    android:layout_column="1" />
+
+                <TextView
+                    android:hint="Actual Price"
+                    android:layout_width="wrap_content"
+                    android:id="@+id/productactualprice"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/emphasis"
+                    android:layout_margin="10dp"
+                    android:layout_column="2" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone">
+
+                <View
+
+                    android:layout_width="0dp"
+                    android:layout_height="1dip"
+                    android:layout_weight="0.5"
+                    android:background="#FF909090" />
+
+                <View
+
+                    android:layout_width="0dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_height="1dip"
+                    android:layout_weight="1"
+                    android:background="#FF909090" />
+            </TableRow>
+
+
+            <TableRow android:layout_marginTop="5dp">
+
+                <TextView
+                    android:text="Profit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_margin="10dp"
+                    android:layout_column="1" />
+
+                <TextView
+                    android:hint="0"
+                    android:id="@+id/productprofit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#FFE7313A"
+                    android:layout_margin="10dp"
+                    android:layout_column="2" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <View
+                    android:layout_column="2"
+                    android:layout_width="30dp"
+                    android:layout_height="1dip"
+                    android:layout_weight="1"
+                    android:background="#FF909090" />
+            </TableRow>
+        </TableLayout>
+
+        <View
+            android:layout_column="2"
+            android:layout_width="match_parent"
+            android:layout_below="@+id/table1"
+            android:layout_marginTop="30dp"
+            android:id="@+id/view1"
+            android:layout_height="1dip"
+            android:layout_weight="1"
+            android:background="#FF909090" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_below="@+id/view1"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:background="@color/colorPrimary"
+            android:text="ADD"
+            android:id="@+id/addProduct"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"/>
+
+
+    </RelativeLayout>
+
+</ScrollView>
+
