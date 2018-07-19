@@ -46,12 +46,26 @@
                     android:layout_height="wrap_content"
                     android:hint="Product Name" />
 
-                <EditText
-                    android:id="@+id/add_pro_edt_qty"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Quantity Type" />
+                    android:orientation="horizontal"
+                    android:gravity="center">
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Quantity Type"
+                        android:textSize="16sp"/>
+
+                    <Spinner
+                        android:layout_marginLeft="10dp"
+                        android:id="@+id/add_pro_edt_qty"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:prompt="@string/spinner_prompt" />
+
+                </LinearLayout>
 
                 <EditText
                     android:id="@+id/add_pro_edt_curr"
