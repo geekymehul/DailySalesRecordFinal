@@ -25,7 +25,7 @@ public class AddProductActivity extends AppCompatActivity
 {
     private FirebaseAuth mAuth;
     private DatabaseReference productDatabase;
-    private EditText edt_name,edt_currency,edt_qty,edt_stock,edt_sell,edt_actual,edt_notes,edt_sku;
+    private EditText edt_name,edt_currency,edt_qty,edt_stock,edt_sell,edt_actual,edt_notes,edt_sku,edt_subcat;
     private ImageView btn_img;
     private Uri mImageUri = null;
     private StorageReference mStorage;
