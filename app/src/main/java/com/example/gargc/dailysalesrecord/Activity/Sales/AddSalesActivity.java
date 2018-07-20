@@ -296,16 +296,25 @@ public class AddSalesActivity extends AppCompatActivity {
                     System.out.println(dateFormat.format(cal.getTime()));
                     Log.i("success",dateFormat.format(cal.getTime()));
 
+                    finalPaid = amountAlreadyPaid;
+                    finaldisc = lastDiscount;
+                    finalProfit = profitLeft;
+                    finalshipping = lastShippingCharge;
+                    finalTotal = totalAmount;
+                    finaltax = lastTax;
 
                     //---------ADDED CODE--------------------------------------
-                    DatabaseReference infoDatabase = FirebaseDatabase.getInstance().getReference().child("Sales Info").
+                    DatabaseReference infoDatabase = FirebaseDatabase.getInstance().getReference().child("SalesInfo").
                             child(mAuth.getCurrentUser().getUid());
+                    Log.i("database",infoDatabase.toString());
                     infoDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot)
                         {
                             if(dataSnapshot.hasChild(dateFormat.format(cal.getTime())))
                             {
+                                dataSnapshot = dataSnapshot.child(dateFormat.format(cal.getTime()));
+                                Log.i("data",dataSnapshot.toString());
                                 int paid = Integer.parseInt(dataSnapshot.child("paid").getValue().toString());
                                 int profit = Integer.parseInt(dataSnapshot.child("profit").getValue().toString());
                                 int total = Integer.parseInt(dataSnapshot.child("total").getValue().toString());
@@ -313,12 +322,29 @@ public class AddSalesActivity extends AppCompatActivity {
                                 int tax = Integer.parseInt(dataSnapshot.child("tax").getValue().toString());
                                 int shipping = Integer.parseInt(dataSnapshot.child("shipping").getValue().toString());
 
-                                amountAlreadyPaid = amountAlreadyPaid+ paid;
-                                profitLeft = profitLeft + profit;
-                                totalAmount = totalAmount + total;
-                                lastDiscount = lastDiscount + disc;
-                                lastTax = lastTax + tax;
-                                lastShippingCharge = lastShippingCharge + shipping;
+                                Log.i("paidalready",finalPaid+"");
+                                Log.i("paid",paid+"");
+
+                                finalPaid = amountAlreadyPaid+ paid;
+                                finalProfit = profitLeft + profit;
+                                finalTotal = totalAmount + total;
+                                finaldisc = lastDiscount + disc;
+                                finaltax = lastTax + tax;
+                                finalshipping = lastShippingCharge + shipping;
+
+                                Log.i("paid",finalPaid+"");
+
+                                Log.i("paid",finalPaid+"");
+                                Log.i("working","fine");
+                               DatabaseReference infoDatabase1 = FirebaseDatabase.getInstance().getReference().child("SalesInfo").
+                                        child(mAuth.getCurrentUser().getUid()).child(dateFormat.format(cal.getTime()));
+                                infoDatabase1.child("paid").setValue(finalPaid);
+                                infoDatabase1.child("profit").setValue(finalProfit);
+                                infoDatabase1.child("total").setValue(finalTotal);
+                                infoDatabase1.child("discount").setValue(finaldisc);
+                                infoDatabase1.child("tax").setValue(finaltax);
+                                infoDatabase1.child("shipping").setValue(finalshipping);
+                                infoDatabase1.child("date").setValue(dateFormat.format(cal.getTime()));
 
                             }
 
@@ -330,16 +356,7 @@ public class AddSalesActivity extends AppCompatActivity {
                         }
                     });
 
-                    Log.i("working","fine");
-                    infoDatabase = FirebaseDatabase.getInstance().getReference().child("SalesInfo").
-                            child(mAuth.getCurrentUser().getUid()).child(dateFormat.format(cal.getTime()));
-                    infoDatabase.child("paid").setValue(amountAlreadyPaid);
-                    infoDatabase.child("profit").setValue(profitLeft);
-                    infoDatabase.child("total").setValue(totalAmount);
-                    infoDatabase.child("discount").setValue(lastDiscount);
-                    infoDatabase.child("tax").setValue(lastTax);
-                    infoDatabase.child("shipping").setValue(lastShippingCharge);
-                    infoDatabase.child("date").setValue(dateFormat.format(cal.getTime()));
+
                     //--------------------------------------------------
 
 
@@ -352,6 +369,7 @@ public class AddSalesActivity extends AppCompatActivity {
                     hashMap.put("DiscountType",selectDiscountType+"");
                     hashMap.put("DiscountPercentage",discountPercentage+"");
                     hashMap.put("Tax",lastTax+"");
+                    hashMap.put("Customer",nameOfCustomer);
                     hashMap.put("TaxType",taxDiscountType+"");
                     hashMap.put("TaxPercentage",taxPercentage+"");
                     hashMap.put("Shipping",lastShippingCharge+"");
