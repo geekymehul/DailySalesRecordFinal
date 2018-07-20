@@ -49,25 +49,33 @@ public class EditProductActivity extends AppCompatActivity
         mAuth = FirebaseAuth.getInstance();
         productDatabase = FirebaseDatabase.getInstance().getReference().child("Products").child(mAuth.getCurrentUser().getUid());
         mStorage = FirebaseStorage.getInstance().getReference();
+
+
         itemDatabase = productDatabase.child(productName);
 
         itemDatabase.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot)
-            {
-                edt_actual.setText(dataSnapshot.child("actual_price").getValue().toString());
-                edt_currency.setText(dataSnapshot.child("currency").getValue().toString());
-                edt_name.setText(dataSnapshot.child("name").getValue().toString());
-                edt_qty.setText(dataSnapshot.child("quantity").getValue().toString());
-                edt_stock.setText(dataSnapshot.child("stock").getValue().toString());
-                edt_sell.setText(dataSnapshot.child("selling_price").getValue().toString());
-                edt_notes.setText(dataSnapshot.child("notes").getValue().toString());
-                edt_sku.setText(dataSnapshot.child("sku").getValue().toString());
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    edt_actual.setText(dataSnapshot.child("actual_price").getValue().toString());
+                    edt_currency.setText(dataSnapshot.child("currency").getValue().toString());
+                    edt_name.setText(dataSnapshot.child("name").getValue().toString());
+                    edt_qty.setText(dataSnapshot.child("quantity").getValue().toString());
+                    edt_stock.setText(dataSnapshot.child("stock").getValue().toString());
+                    edt_sell.setText(dataSnapshot.child("selling_price").getValue().toString());
+                    edt_notes.setText(dataSnapshot.child("notes").getValue().toString());
+                    edt_sku.setText(dataSnapshot.child("sku").getValue().toString());
 
-                if(!dataSnapshot.child("image").getValue().toString().equals("none"))
-                    Picasso.with(getApplicationContext()).load(dataSnapshot.child("image").getValue().toString()).into(btn_img);
+                    if (!dataSnapshot.child("image").getValue().toString().equals("none"))
+                        Picasso.with(getApplicationContext()).load(dataSnapshot.child("image").getValue().toString()).into(btn_img);
+                }
+                else
+                {
+                    finish();
+
+                    Toast.makeText(EditProductActivity.this, "this product does not exists", Toast.LENGTH_SHORT).show();
+                }
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
