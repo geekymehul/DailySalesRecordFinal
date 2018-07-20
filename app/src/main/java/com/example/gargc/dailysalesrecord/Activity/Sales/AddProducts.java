@@ -1,5 +1,7 @@
 package com.example.gargc.dailysalesrecord.Activity.Sales;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,6 +16,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.gargc.dailysalesrecord.Model.AddProduct;
 import com.example.gargc.dailysalesrecord.Model.ProductContent;
 import com.example.gargc.dailysalesrecord.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -88,7 +91,7 @@ public class AddProducts extends AppCompatActivity {
                     Toast.makeText(AddProducts.this, "Enter Number Of Quantity", Toast.LENGTH_SHORT).show();
                     quantityedittext.requestFocus();
                 }
-                else if(clickedPosition!=-1&&Integer.parseInt(list.get(clickedPosition).getStock())<numberOfItems)
+                else if(clickedPosition==-1 || Integer.parseInt(list.get(clickedPosition).getStock())<numberOfItems)
                 {
                     if(clickedPosition==-1)
                     {
@@ -101,7 +104,17 @@ public class AddProducts extends AppCompatActivity {
                 }
                 else
                 {
+                    AddProduct addProduct=new AddProduct();
+                    addProduct.setProductName(list.get(clickedPosition).getName());
+                    addProduct.setQuantity(numberOfItems);
+                    addProduct.setActualPrice(Float.valueOf(productactualprice.getText().toString()));
+                    addProduct.setSellingPrice( Float.valueOf(productsellingprice.getText().toString()));
+                    addProduct.setProfit(Float.valueOf(productsellingprice.getText().toString()) - Float.valueOf(productactualprice.getText().toString()));
 
+                    Intent returnIntent = new Intent();
+                    returnIntent.putExtra("result",addProduct);
+                    setResult(Activity.RESULT_OK,returnIntent);
+                    finish();
                 }
 
             }

@@ -72,6 +72,7 @@
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
                android:stretchColumns="4"
+               android:id="@+id/tableLayout"
                >
 
                <TableRow
@@ -135,6 +136,7 @@
 
                 <TextView
                     android:text="0.00"
+                    android:id="@+id/totalAmount"
                     android:layout_column="2"
                     android:textStyle="bold"/>
 
@@ -165,6 +167,8 @@
 
                 <EditText
                     android:hint="0"
+                    android:id="@+id/discount"
+                    android:inputType="numberDecimal"
                     android:layout_column="2"
                     android:textStyle="bold" />
 
@@ -195,6 +199,8 @@
                 <EditText
                     android:hint="0"
                     android:layout_column="2"
+                    android:id="@+id/taxToBeCharged"
+                    android:inputType="numberDecimal"
                     android:textStyle="bold" />
 
             </TableRow>
@@ -224,6 +230,8 @@
                 <EditText
                     android:hint="0"
                     android:layout_column="2"
+                    android:inputType="numberDecimal"
+                    android:id="@+id/shippingCharge"
                     android:textStyle="bold" />
 
             </TableRow>
@@ -256,6 +264,7 @@
                     android:text="0.0"
                     android:textSize="18dp"
                     android:layout_column="2"
+                    android:id="@+id/AmountToBePaid"
                     android:textColor="@color/emphasis"
                     android:textStyle="bold" />
 
@@ -286,6 +295,8 @@
                 <EditText
                     android:hint="0"
                     android:layout_column="2"
+                    android:inputType="numberDecimal"
+                    android:id="@+id/amountPaidAlready"
                     android:textStyle="bold" />
 
             </TableRow>
@@ -317,6 +328,7 @@
                     android:text="0"
                     android:textColor="#FFE7313A"
                     android:layout_column="2"
+                    android:id="@+id/due"
                     android:textStyle="bold" />
 
 
@@ -348,6 +360,7 @@
                     android:text="0"
                     android:textColor="@color/colorPrimary"
                     android:layout_column="2"
+                    android:id="@+id/profit"
                     android:textStyle="bold" />
 
             </TableRow>
@@ -381,6 +394,8 @@
                     android:layout_width="wrap_content"
                     android:inputType="textMultiLine"
                     android:text=""
+                    android:id="@+id/noteOfSales"
+                    android:hint="Add a Note"
                     android:layout_marginLeft="20dp"
                     android:layout_height="wrap_content"
                     android:layout_column="2"/>
@@ -412,7 +427,8 @@
                 android:layout_column="1" />
 
                 <Spinner
-                    android:layout_column="2">
+                    android:layout_column="2"
+                    android:id="@+id/statusSpinner">
 
                 </Spinner>
             </TableRow>
