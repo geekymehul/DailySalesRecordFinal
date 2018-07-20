@@ -50,7 +50,6 @@ public class EditProductActivity extends AppCompatActivity
         productDatabase = FirebaseDatabase.getInstance().getReference().child("Products").child(mAuth.getCurrentUser().getUid());
         mStorage = FirebaseStorage.getInstance().getReference();
 
-
         itemDatabase = productDatabase.child(productName);
 
         itemDatabase.addValueEventListener(new ValueEventListener() {

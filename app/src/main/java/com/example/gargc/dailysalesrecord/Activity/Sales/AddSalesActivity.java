@@ -50,6 +50,8 @@ import java.util.regex.MatchResult;
 
 public class AddSalesActivity extends AppCompatActivity {
 
+    Float finalPaid,finalProfit,finalTotal,finaldisc,finaltax,finalshipping;
+
     Button addSalesCustomer,addSalesProduct,add;
     Spinner spinnerDateIn,statusSpinner;
 
@@ -286,12 +288,61 @@ public class AddSalesActivity extends AppCompatActivity {
                 }
                 else
                 {
+
                     Log.i("success","checking");
                     Log.i("success",spinnerDateIn.getSelectedItem()+" ");
-                    Calendar cal = (Calendar) spinnerDateIn.getSelectedItem();
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd MM y");
+                    final Calendar cal = (Calendar) spinnerDateIn.getSelectedItem();
+                    final SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-y");
                     System.out.println(dateFormat.format(cal.getTime()));
                     Log.i("success",dateFormat.format(cal.getTime()));
+
+
+                    //---------ADDED CODE--------------------------------------
+                    DatabaseReference infoDatabase = FirebaseDatabase.getInstance().getReference().child("Sales Info").
+                            child(mAuth.getCurrentUser().getUid());
+                    infoDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot)
+                        {
+                            if(dataSnapshot.hasChild(dateFormat.format(cal.getTime())))
+                            {
+                                int paid = Integer.parseInt(dataSnapshot.child("paid").getValue().toString());
+                                int profit = Integer.parseInt(dataSnapshot.child("profit").getValue().toString());
+                                int total = Integer.parseInt(dataSnapshot.child("total").getValue().toString());
+                                int disc = Integer.parseInt(dataSnapshot.child("discount").getValue().toString());
+                                int tax = Integer.parseInt(dataSnapshot.child("tax").getValue().toString());
+                                int shipping = Integer.parseInt(dataSnapshot.child("shipping").getValue().toString());
+
+                                amountAlreadyPaid = amountAlreadyPaid+ paid;
+                                profitLeft = profitLeft + profit;
+                                totalAmount = totalAmount + total;
+                                lastDiscount = lastDiscount + disc;
+                                lastTax = lastTax + tax;
+                                lastShippingCharge = lastShippingCharge + shipping;
+
+                            }
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+
+                    Log.i("working","fine");
+                    infoDatabase = FirebaseDatabase.getInstance().getReference().child("SalesInfo").
+                            child(mAuth.getCurrentUser().getUid()).child(dateFormat.format(cal.getTime()));
+                    infoDatabase.child("paid").setValue(amountAlreadyPaid);
+                    infoDatabase.child("profit").setValue(profitLeft);
+                    infoDatabase.child("total").setValue(totalAmount);
+                    infoDatabase.child("discount").setValue(lastDiscount);
+                    infoDatabase.child("tax").setValue(lastTax);
+                    infoDatabase.child("shipping").setValue(lastShippingCharge);
+                    infoDatabase.child("date").setValue(dateFormat.format(cal.getTime()));
+                    //--------------------------------------------------
+
+
 
                     final DatabaseReference database = mDatabase.child(dateFormat.format(cal.getTime())).child(nameOfCustomer);
 
@@ -319,7 +370,7 @@ public class AddSalesActivity extends AppCompatActivity {
                                 for(int i=0;i<addProductArrayList.size();i++)
                                 {
 
-                                    AddProduct addProduct=addProductArrayList.get(i);
+                                    AddProduct addProduct = addProductArrayList.get(i);
                                     DatabaseReference databaseReference=productList.child(addProduct.getProductName()+i);
 
                                     HashMap<String,String> hashMap=new HashMap<String, String>();
@@ -330,7 +381,6 @@ public class AddSalesActivity extends AppCompatActivity {
                                     hashMap.put("Subtotal",total+"");
 
                                     Log.i("success","entering");
-
 
                                     databaseReference.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
@@ -351,12 +401,13 @@ public class AddSalesActivity extends AppCompatActivity {
 
                                         }
                                     });
+
                                 }
+
                             }
 
                         }
                     });
-
 
                 }
 
