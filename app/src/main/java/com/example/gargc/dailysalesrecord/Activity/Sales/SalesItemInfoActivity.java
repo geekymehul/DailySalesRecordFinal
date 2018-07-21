@@ -1,10 +1,12 @@
 package com.example.gargc.dailysalesrecord.Activity.Sales;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.gargc.dailysalesrecord.Model.SalesItemContent;
@@ -54,6 +56,8 @@ public class SalesItemInfoActivity extends AppCompatActivity
             @Override
             protected void populateViewHolder(ItemViewHolder viewHolder, SalesItemContent model, int position)
             {
+                final String customer = getRef(position).getKey();
+
                 viewHolder.profit.setText("Profit Earned: "+model.getProfit());
                 viewHolder.paid.setText("Paid : "+model.getPaid());
                 viewHolder.status.setText("Status : "+model.getStatus());
@@ -63,6 +67,18 @@ public class SalesItemInfoActivity extends AppCompatActivity
                 viewHolder.tax.setText("Tax : "+model.getTax());
                 viewHolder.taxPer.setText("Tax : "+model.getTaxPercentage()+"%");
                 viewHolder.customer.setText("Customer : "+model.getCustomer());
+
+                viewHolder.viewDetails.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view)
+                    {
+                        Intent viewIntent = new Intent(SalesItemInfoActivity.this,CustomerSaleReportActivity.class);
+                        viewIntent.putExtra("date",date);
+                        viewIntent.putExtra("customer",customer);
+                        startActivity(viewIntent);
+                    }
+                });
+
             }
         };
         salesList.setAdapter(firebaseRecyclerAdapter);
@@ -71,8 +87,10 @@ public class SalesItemInfoActivity extends AppCompatActivity
     public static class ItemViewHolder extends RecyclerView.ViewHolder
     {
         TextView customer,status,total,paid,disc,discPer,tax,taxPer,profit;
+        Button viewDetails;
 
-        public ItemViewHolder(View itemView) {
+        public ItemViewHolder(View itemView)
+        {
             super(itemView);
 
             customer = (TextView)itemView.findViewById(R.id.single_sales_item_customer);
@@ -84,6 +102,7 @@ public class SalesItemInfoActivity extends AppCompatActivity
             tax = (TextView)itemView.findViewById(R.id.single_sales_item_tax);
             taxPer = (TextView)itemView.findViewById(R.id.single_sales_item_tax_per);
             profit = (TextView)itemView.findViewById(R.id.single_sales_item_profit);
+            viewDetails = (Button)itemView.findViewById(R.id.single_sales_item_view_details);
         }
 
     }

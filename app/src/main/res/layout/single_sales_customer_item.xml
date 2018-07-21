@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:weightSum="4"
+    android:layout_marginTop="5dp"
+    android:padding="2dp"
+    android:gravity="center">
+
+        <TextView
+            android:id="@+id/single_cust_sales_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="ITEM"
+            android:layout_marginLeft="5dp"/>
+
+        <TextView
+            android:text="QTY"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/single_cust_sales_qty"/>
+
+        <TextView
+            android:text="PRICE"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/single_cust_sales_price"/>
+
+        <TextView
+            android:text="TOTAL"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/single_cust_sales_total"/>
+
+</LinearLayout>
+

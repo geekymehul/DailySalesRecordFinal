@@ -71,8 +71,6 @@ public class AddSalesActivity extends AppCompatActivity {
 
     ArrayList<AddProduct> addProductArrayList=new ArrayList<>();
 
-
-
     Float totalProfit;
 
     //Firebase
