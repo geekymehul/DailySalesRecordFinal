@@ -24,8 +24,8 @@ public class CustomerSaleReportActivity extends AppCompatActivity
     private String date,customer;
     private RecyclerView itemList;
     private FirebaseAuth mAuth;
-    private DatabaseReference mDatabase,custDatabase;
-    private TextView tvDate,tvCustomer,tvEmail,tvPhone,tvCompany;
+    private DatabaseReference mDatabase,custDatabase,saleDatabase;
+    private TextView tvDate,tvCustomer,tvEmail,tvPhone,tvCompany,tvSubtotal,tvTotal,tvTax,tvDisc;
     private Button btnGenerate;
 
     @Override
@@ -49,12 +49,18 @@ public class CustomerSaleReportActivity extends AppCompatActivity
         tvPhone = (TextView)findViewById(R.id.customer_sale_phone);
         tvCompany = (TextView)findViewById(R.id.customer_sale_user_name);
         btnGenerate = (Button)findViewById(R.id.customer_sales_btn_invoice);
+        tvTax = (TextView)findViewById(R.id.customer_sales_tax);
+        tvTotal = (TextView)findViewById(R.id.customer_sales_total);
+        tvSubtotal = (TextView)findViewById(R.id.customer_sales_subtotal);
+        tvDisc = (TextView)findViewById(R.id.customer_sales_discount);
 
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Sales").child(mAuth.getCurrentUser().getUid())
                 .child(date).child(customer).child("ProductsSold");
         custDatabase = FirebaseDatabase.getInstance().getReference().child("Customer").child(mAuth.getCurrentUser().getUid())
                 .child(customer);
+        saleDatabase = FirebaseDatabase.getInstance().getReference().child("Sales").child(mAuth.getCurrentUser().getUid())
+            .child(date).child(customer);
 
         tvDate.setText("INVOICE DATE : "+date);
         tvCustomer.setText(customer);
@@ -64,6 +70,21 @@ public class CustomerSaleReportActivity extends AppCompatActivity
             public void onDataChange(DataSnapshot dataSnapshot) {
                 tvEmail.setText(dataSnapshot.child("EmailId").getValue().toString());
                 tvPhone.setText(dataSnapshot.child("PhoneNumber").getValue().toString());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        saleDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                tvSubtotal.setText("Subtotal : "+dataSnapshot.child("Subtotal").getValue().toString());
+                tvDisc.setText("Discount : "+dataSnapshot.child("Discount").getValue().toString());
+                tvTax.setText("Tax : "+dataSnapshot.child("Tax").getValue().toString());
+                tvTotal.setText("Total : "+dataSnapshot.child("Total").getValue().toString());
             }
 
             @Override
