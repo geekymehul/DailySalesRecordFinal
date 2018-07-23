@@ -332,9 +332,8 @@ public class AddSalesActivity extends AppCompatActivity {
 
                                 Log.i("paid",finalPaid+"");
 
-                                Log.i("paid",finalPaid+"");
-                                Log.i("working","fine");
-                               DatabaseReference infoDatabase1 = FirebaseDatabase.getInstance().getReference().child("SalesInfo").
+
+                                DatabaseReference infoDatabase1 = FirebaseDatabase.getInstance().getReference().child("SalesInfo").
                                         child(mAuth.getCurrentUser().getUid()).child(dateFormat.format(cal.getTime()));
                                 infoDatabase1.child("paid").setValue(finalPaid);
                                 infoDatabase1.child("profit").setValue(finalProfit);
@@ -344,6 +343,9 @@ public class AddSalesActivity extends AppCompatActivity {
                                 infoDatabase1.child("shipping").setValue(finalshipping);
                                 infoDatabase1.child("date").setValue(dateFormat.format(cal.getTime()));
 
+
+                                Log.i("paid",finalPaid+"");
+                                Log.i("working","fine");
                             }
 
                         }
@@ -353,7 +355,6 @@ public class AddSalesActivity extends AppCompatActivity {
 
                         }
                     });
-
 
                     //--------------------------------------------------
 

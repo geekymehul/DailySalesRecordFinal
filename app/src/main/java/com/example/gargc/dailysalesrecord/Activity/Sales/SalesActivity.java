@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.gargc.dailysalesrecord.Activity.EditProductActivity;
@@ -21,6 +22,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 public class SalesActivity extends AppCompatActivity
@@ -30,6 +32,8 @@ public class SalesActivity extends AppCompatActivity
     private FirebaseAuth mAuth;
     private DatabaseReference salesDatabase;
     private RecyclerView salesList;
+    private EditText date1,date2;
+    private Button btnSearch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -44,6 +48,9 @@ public class SalesActivity extends AppCompatActivity
         salesList.setLayoutManager(new LinearLayoutManager(this));
         salesList.setHasFixedSize(true);
 
+        date1 = (EditText)findViewById(R.id.sales_date1);
+        date2 = (EditText)findViewById(R.id.sales_date2);
+        btnSearch = (Button)findViewById(R.id.sales_btn_filter);
 
         floatingActionButton=(FloatingActionButton) findViewById(R.id.addSale);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
@@ -55,6 +62,56 @@ public class SalesActivity extends AppCompatActivity
 
             }
         });
+
+        btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                filter();
+            }
+        });
+
+    }
+
+    private void filter()
+    {
+        String startDate = date1.getText().toString();
+        String endDate = date2.getText().toString();
+
+        Query infoDatabase = salesDatabase.orderByChild("date").startAt(startDate).endAt(endDate);
+
+        FirebaseRecyclerAdapter<SalesContent,SalesViewHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<SalesContent, SalesViewHolder>
+                (
+                        SalesContent.class,
+                        R.layout.single_sales_info,
+                        SalesViewHolder.class,
+                        infoDatabase
+                ) {
+            @Override
+            protected void populateViewHolder(SalesViewHolder viewHolder, SalesContent model, int position)
+            {
+                final String sales_key = getRef(position).getKey();
+
+                viewHolder.date.setText("Date : "+model.getDate());
+                viewHolder.paid.setText("Paid : "+model.getPaid());
+                viewHolder.total.setText("Total :"+model.getTotal());
+                viewHolder.discount.setText("Discount :  "+model.getDiscount());
+                viewHolder.tax.setText("Tax : "+model.getTax());
+                viewHolder.shipping.setText("Shipping : "+model.getShipping());
+                viewHolder.profit.setText("Profit : "+model.getProfit());
+
+                viewHolder.viewDetails.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view)
+                    {
+                        Intent viewIntent = new Intent(SalesActivity.this,SalesItemInfoActivity.class);
+                        viewIntent.putExtra("sales_id",sales_key);
+                        startActivity(viewIntent);
+                    }
+                });
+            }
+        };
+
+        salesList.setAdapter(firebaseRecyclerAdapter);
 
     }
 

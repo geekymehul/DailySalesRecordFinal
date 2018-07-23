@@ -6,10 +6,52 @@
     android:layout_height="match_parent"
     tools:context="com.example.gargc.dailysalesrecord.Activity.Sales.SalesActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        android:orientation="horizontal"
+        android:id="@+id/sales_cont"
+        android:weightSum="3"
+        android:padding="5dp"
+        android:gravity="center_vertical">
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:id="@+id/sales_date1"
+            android:hint="start date"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rectangular_white"/>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/sales_date2"
+            android:hint="end date"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:background="@drawable/rectangular_white"/>
+
+        <Button
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@drawable/search_icon"
+            android:layout_marginLeft="15dp"
+            android:id="@+id/sales_btn_filter"/>
+
+    </LinearLayout>
+
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/sales_list">
+        android:id="@+id/sales_list"
+        android:layout_below="@+id/sales_cont">
     </android.support.v7.widget.RecyclerView>
 
     <android.support.design.widget.FloatingActionButton
