@@ -46,6 +46,17 @@
             android:paddingLeft="20dp" />
 
         <EditText
+            android:id="@+id/reg_edt_company_name"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/border_rectangular_white"
+            android:hint="company name"
+            android:paddingLeft="20dp" />
+
+        <EditText
             android:id="@+id/reg_edt_password"
             android:layout_width="match_parent"
             android:layout_height="40dp"

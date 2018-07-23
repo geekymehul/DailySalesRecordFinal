@@ -24,7 +24,7 @@ public class CustomerSaleReportActivity extends AppCompatActivity
     private String date,customer;
     private RecyclerView itemList;
     private FirebaseAuth mAuth;
-    private DatabaseReference mDatabase,custDatabase,saleDatabase;
+    private DatabaseReference mDatabase,custDatabase,saleDatabase,userDatabase;
     private TextView tvDate,tvCustomer,tvEmail,tvPhone,tvCompany,tvSubtotal,tvTotal,tvTax,tvDisc;
     private Button btnGenerate;
 
@@ -61,9 +61,22 @@ public class CustomerSaleReportActivity extends AppCompatActivity
                 .child(customer);
         saleDatabase = FirebaseDatabase.getInstance().getReference().child("Sales").child(mAuth.getCurrentUser().getUid())
             .child(date).child(customer);
+        userDatabase =  FirebaseDatabase.getInstance().getReference().child("Users").child(mAuth.getCurrentUser().getUid());
 
         tvDate.setText("INVOICE DATE : "+date);
         tvCustomer.setText(customer);
+
+        userDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                tvCompany.setText(dataSnapshot.child("companyName").getValue().toString());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
         custDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

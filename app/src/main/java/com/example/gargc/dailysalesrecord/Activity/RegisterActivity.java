@@ -25,7 +25,7 @@ public class RegisterActivity extends AppCompatActivity
 
     private FirebaseAuth mAuth;
     private Button btn_reg;
-    private EditText edt_name,edt_pass,edt_email;
+    private EditText edt_name,edt_pass,edt_email,edt_company;
     private ProgressDialog mProgress;
     private DatabaseReference userDatabase;
 
@@ -40,6 +40,7 @@ public class RegisterActivity extends AppCompatActivity
 
         edt_email = (EditText)findViewById(R.id.reg_edt_email);
         edt_name = (EditText)findViewById(R.id.reg_edt_name);
+        edt_company = (EditText)findViewById(R.id.reg_edt_company_name);
         edt_pass = (EditText)findViewById(R.id.reg_edt_password);
         btn_reg = (Button)findViewById(R.id.reg_btn_reg);
 
@@ -51,9 +52,10 @@ public class RegisterActivity extends AppCompatActivity
             {
                 final String name = edt_name.getText().toString();
                 final String email = edt_email.getText().toString();
+                final String company = edt_company.getText().toString();
                 String pass = edt_pass.getText().toString();
 
-                if(TextUtils.isEmpty(name) || TextUtils.isEmpty(email) || TextUtils.isEmpty(pass))
+                if(TextUtils.isEmpty(name) || TextUtils.isEmpty(email) || TextUtils.isEmpty(pass) || TextUtils.isEmpty(company))
                 {
                     Toast.makeText(RegisterActivity.this, "Enter all the fields", Toast.LENGTH_SHORT).show();
                 }
@@ -74,6 +76,7 @@ public class RegisterActivity extends AppCompatActivity
                                 DatabaseReference user = userDatabase.child(userId);
                                 user.child("name").setValue(name);
                                 user.child("email").setValue(email);
+                                user.child("companyName").setValue(company);
 
                                 mProgress.dismiss();
 
