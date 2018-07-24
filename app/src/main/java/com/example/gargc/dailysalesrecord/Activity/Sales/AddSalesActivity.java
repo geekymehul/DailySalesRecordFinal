@@ -347,6 +347,18 @@ public class AddSalesActivity extends AppCompatActivity {
                                 Log.i("paid",finalPaid+"");
                                 Log.i("working","fine");
                             }
+                            else
+                            {
+                                DatabaseReference infoDatabase1 = FirebaseDatabase.getInstance().getReference().child("SalesInfo").
+                                        child(mAuth.getCurrentUser().getUid()).child(dateFormat.format(cal.getTime()));
+                                infoDatabase1.child("paid").setValue(finalPaid);
+                                infoDatabase1.child("profit").setValue(finalProfit);
+                                infoDatabase1.child("total").setValue(finalTotal);
+                                infoDatabase1.child("discount").setValue(finaldisc);
+                                infoDatabase1.child("tax").setValue(finaltax);
+                                infoDatabase1.child("shipping").setValue(finalshipping);
+                                infoDatabase1.child("date").setValue(dateFormat.format(cal.getTime()));
+                            }
 
                         }
 
