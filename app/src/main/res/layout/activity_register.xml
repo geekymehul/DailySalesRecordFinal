@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    android:orientation="vertical"
     android:gravity="center"
     tools:context="com.example.gargc.dailysalesrecord.Activity.RegisterActivity">
 
@@ -14,13 +13,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         >
-
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="50dp"
-            android:src="@drawable/logo" />
 
         <EditText
             android:id="@+id/reg_edt_name"
@@ -57,6 +49,39 @@
             android:paddingLeft="20dp" />
 
         <EditText
+            android:id="@+id/reg_edt_gst_no"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/border_rectangular_white"
+            android:hint="GST number"
+            android:paddingLeft="20dp" />
+
+        <EditText
+            android:id="@+id/reg_edt_state"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/border_rectangular_white"
+            android:hint="state"
+            android:paddingLeft="20dp" />
+
+        <EditText
+            android:id="@+id/reg_edt_pancard_no"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/border_rectangular_white"
+            android:hint="Pan card number"
+            android:paddingLeft="20dp" />
+
+        <EditText
             android:id="@+id/reg_edt_password"
             android:layout_width="match_parent"
             android:layout_height="40dp"
@@ -85,4 +110,4 @@
     </LinearLayout>
 
 
-</RelativeLayout>
+</android.support.v4.widget.NestedScrollView>

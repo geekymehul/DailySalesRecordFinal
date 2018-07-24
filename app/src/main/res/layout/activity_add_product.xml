@@ -142,6 +142,51 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="SGST"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16sp"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="SGST (%)"
+            android:inputType="number"
+            android:textSize="16sp"
+            android:id="@+id/add_pro_edt_sgst"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CGST"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16sp"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="CGST (%)"
+            android:inputType="number"
+            android:textSize="16sp"
+            android:id="@+id/add_pro_edt_cgst"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CGST"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16sp"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="CESS (%)"
+            android:inputType="number"
+            android:textSize="16sp"
+            android:id="@+id/add_pro_edt_cess"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="add subcategory"
             android:textColor="@color/colorPrimary"
             android:textSize="16sp"/>

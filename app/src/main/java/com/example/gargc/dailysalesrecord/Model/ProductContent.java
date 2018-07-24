@@ -3,10 +3,34 @@ package com.example.gargc.dailysalesrecord.Model;
 
 public class ProductContent
 {
-    private String name,selling_price,actual_price,quantity,image,currency,stock,sku,notes,subcategory;
+    private String name,selling_price,actual_price,quantity,image,currency,stock,sku,notes,subcategory,cgst,sgst,cess;
 
     public String getSubcategory() {
         return subcategory;
+    }
+
+    public String getCgst() {
+        return cgst;
+    }
+
+    public void setCgst(String cgst) {
+        this.cgst = cgst;
+    }
+
+    public String getSgst() {
+        return sgst;
+    }
+
+    public void setSgst(String sgst) {
+        this.sgst = sgst;
+    }
+
+    public String getCess() {
+        return cess;
+    }
+
+    public void setCess(String cess) {
+        this.cess = cess;
     }
 
     public void setSubcategory(String subcategory) {

@@ -32,7 +32,7 @@ public class AddProductActivity extends AppCompatActivity implements AdapterView
     private FirebaseAuth mAuth;
     private DatabaseReference productDatabase;
     private Spinner edt_qty;
-    private EditText edt_name,edt_currency,edt_stock,edt_sell,edt_actual,edt_notes,edt_sku,edt_subcat;
+    private EditText edt_name,edt_currency,edt_stock,edt_sell,edt_actual,edt_notes,edt_sku,edt_subcat,edt_sgst,edt_cgst,edt_cess;
     private ImageView btn_img;
     private Uri mImageUri = null;
     private StorageReference mStorage;
@@ -59,6 +59,9 @@ public class AddProductActivity extends AppCompatActivity implements AdapterView
         edt_sell = (EditText)findViewById(R.id.add_pro_edt_selling_price);
         edt_notes = (EditText)findViewById(R.id.add_pro_edt_notes);
         edt_sku = (EditText)findViewById(R.id.add_pro_edt_sku);
+        edt_sgst = (EditText)findViewById(R.id.add_pro_edt_sgst);
+        edt_cgst = (EditText)findViewById(R.id.add_pro_edt_cgst);
+        edt_cess = (EditText)findViewById(R.id.add_pro_edt_cess);
         btn_img = (ImageView)findViewById(R.id.add_pro_btn_img);
         btn_add = (Button)findViewById(R.id.add_pro_btn_add);
         edt_subcat = (EditText)findViewById(R.id.add_pro_edt_subcat);
@@ -116,6 +119,9 @@ public class AddProductActivity extends AppCompatActivity implements AdapterView
                 final String qty = edt_qty.getSelectedItem().toString();;
                 final String subcat = edt_subcat.getText().toString();
                 final String notes = edt_notes.getText().toString();
+                final String sgst = edt_sgst.getText().toString();
+                final String cgst = edt_sgst.getText().toString();
+                final String cess = edt_cess.getText().toString();
 
                 if(TextUtils.isEmpty(actual) || TextUtils.isEmpty(sell) || TextUtils.isEmpty(name) || TextUtils.isEmpty(currency) ||
                         TextUtils.isEmpty(stock) ||mImageUri == null)
@@ -124,7 +130,7 @@ public class AddProductActivity extends AppCompatActivity implements AdapterView
                 }
                 else
                 {
-                    mProgress.setTitle("Posting to Blog");
+                    mProgress.setTitle("Adding Product");
                     mProgress.setCanceledOnTouchOutside(false);
                     mProgress.show();
 
@@ -146,6 +152,9 @@ public class AddProductActivity extends AppCompatActivity implements AdapterView
                                 info.child("stock").setValue(stock);
                                 info.child("sku").setValue(sku);
                                 info.child("notes").setValue(notes);
+                                info.child("cgst").setValue(cgst);
+                                info.child("sgst").setValue(sgst);
+                                info.child("cess").setValue(cess);
                                 info.child("subcategory").setValue(subcat);
 
                                 Toast.makeText(AddProductActivity.this, "Product added", Toast.LENGTH_SHORT).show();

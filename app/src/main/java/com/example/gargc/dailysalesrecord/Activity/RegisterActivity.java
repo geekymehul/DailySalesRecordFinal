@@ -25,7 +25,7 @@ public class RegisterActivity extends AppCompatActivity
 
     private FirebaseAuth mAuth;
     private Button btn_reg;
-    private EditText edt_name,edt_pass,edt_email,edt_company;
+    private EditText edt_name,edt_pass,edt_email,edt_company,edt_gst,edt_pancard,edt_state;
     private ProgressDialog mProgress;
     private DatabaseReference userDatabase;
 
@@ -42,6 +42,9 @@ public class RegisterActivity extends AppCompatActivity
         edt_name = (EditText)findViewById(R.id.reg_edt_name);
         edt_company = (EditText)findViewById(R.id.reg_edt_company_name);
         edt_pass = (EditText)findViewById(R.id.reg_edt_password);
+        edt_pancard = (EditText)findViewById(R.id.reg_edt_pancard_no);
+        edt_gst = (EditText)findViewById(R.id.reg_edt_gst_no);
+        edt_state = (EditText)findViewById(R.id.reg_edt_state);
         btn_reg = (Button)findViewById(R.id.reg_btn_reg);
 
         mProgress = new ProgressDialog(RegisterActivity.this);
@@ -53,9 +56,14 @@ public class RegisterActivity extends AppCompatActivity
                 final String name = edt_name.getText().toString();
                 final String email = edt_email.getText().toString();
                 final String company = edt_company.getText().toString();
+                final String pancard = edt_pancard.getText().toString();
+                final String gst = edt_gst.getText().toString();
+                final String state = edt_state.getText().toString();
+
                 String pass = edt_pass.getText().toString();
 
-                if(TextUtils.isEmpty(name) || TextUtils.isEmpty(email) || TextUtils.isEmpty(pass) || TextUtils.isEmpty(company))
+                if(TextUtils.isEmpty(name) || TextUtils.isEmpty(email) || TextUtils.isEmpty(pass) || TextUtils.isEmpty(company) ||
+                TextUtils.isEmpty(state) ||TextUtils.isEmpty(pancard) ||TextUtils.isEmpty(gst))
                 {
                     Toast.makeText(RegisterActivity.this, "Enter all the fields", Toast.LENGTH_SHORT).show();
                 }
@@ -77,6 +85,9 @@ public class RegisterActivity extends AppCompatActivity
                                 user.child("name").setValue(name);
                                 user.child("email").setValue(email);
                                 user.child("companyName").setValue(company);
+                                user.child("gstNo").setValue(gst);
+                                user.child("state").setValue(state);
+                                user.child("pancardNo").setValue(pancard);
 
                                 mProgress.dismiss();
 
