@@ -41,6 +41,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -71,7 +72,7 @@ public class AddSalesActivity extends AppCompatActivity {
 
     ArrayList<AddProduct> addProductArrayList=new ArrayList<>();
 
-    Float totalProfit;
+    Float totalProfit=0f;
 
     //Firebase
     FirebaseAuth mAuth;
@@ -132,28 +133,28 @@ public class AddSalesActivity extends AppCompatActivity {
             }
         });
 
-        taxToBeCharged.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                if(selectDiscountType==-1)
-                {
-                    Toast.makeText(AddSalesActivity.this, "Please select discount first", Toast.LENGTH_SHORT).show();
-                }
-                else if(taxDiscountType==-1)
-                {
-                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(AddSalesActivity.this);
-                    alertDialogBuilder.setTitle("Tax Type");
-                    final View inflater = View.inflate(AddSalesActivity.this, R.layout.alert_label_editor, null);
-                    ListView listView = (ListView) inflater.findViewById(R.id.customerList);
-                    alertDialogBuilder.setView(inflater);
-                    AlertDialog alertDialog = alertDialogBuilder.create();
-                    showTaxType(listView, alertDialog);
-                    alertDialog.show();
-
-                }
-            }
-        });
+//        taxToBeCharged.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//                if(selectDiscountType==-1)
+//                {
+//                    Toast.makeText(AddSalesActivity.this, "Please select discount first", Toast.LENGTH_SHORT).show();
+//                }
+//                else if(taxDiscountType==-1)
+//                {
+//                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(AddSalesActivity.this);
+//                    alertDialogBuilder.setTitle("Tax Type");
+//                    final View inflater = View.inflate(AddSalesActivity.this, R.layout.alert_label_editor, null);
+//                    ListView listView = (ListView) inflater.findViewById(R.id.customerList);
+//                    alertDialogBuilder.setView(inflater);
+//                    AlertDialog alertDialog = alertDialogBuilder.create();
+//                    showTaxType(listView, alertDialog);
+//                    alertDialog.show();
+//
+//                }
+//            }
+//        });
 
         discount.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -172,6 +173,7 @@ public class AddSalesActivity extends AppCompatActivity {
 
                         Float dis=Float.valueOf(discount.getText().toString());
                         Float remove=(totalAmount*dis)/100;
+                        totalProfit=totalProfit-remove+lastDiscount;
                         if(selectDiscountType==0)
                         {
 
@@ -196,49 +198,49 @@ public class AddSalesActivity extends AppCompatActivity {
             }
         });
 
-        taxToBeCharged.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean b) {
-
-                if(!b)
-                {
-                    Log.i("finish","yo");
-                    if(taxDiscountType==-1)
-                    {
-                        Toast.makeText(AddSalesActivity.this, "Please Select Tax Type", Toast.LENGTH_SHORT).show();
-                        taxToBeCharged.requestFocus();
-                    }
-                    else
-                    {
-                        // WORK UPON THIS
-
-                        Float tax=Float.valueOf(taxToBeCharged.getText().toString());
-                        Float remove=(totalAmount*tax)/100;
-
-                         if(taxDiscountType==0)
-                        {
-
-                            totalAmount=totalAmount+tax-lastTax;
-                            AmountToBePaid.setText(totalAmount+" ");
-                            lastTax=tax;
-
-                        }
-                        else
-                        {
-                            totalAmount=totalAmount+remove-lastTax;
-                            AmountToBePaid.setText(totalAmount+" ");
-                            lastTax=remove;
-                            taxToBeCharged.setText(tax+"%");
-                            taxPercentage=tax;
-                        }
-                    }
-                }
-                else {
-                    Log.i("finish","no");
-                }
-            }
-
-        });
+//        taxToBeCharged.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//            @Override
+//            public void onFocusChange(View view, boolean b) {
+//
+//                if(!b)
+//                {
+//                    Log.i("finish","yo");
+//                    if(taxDiscountType==-1)
+//                    {
+//                        Toast.makeText(AddSalesActivity.this, "Please Select Tax Type", Toast.LENGTH_SHORT).show();
+//                        taxToBeCharged.requestFocus();
+//                    }
+//                    else
+//                    {
+//                        // WORK UPON THIS
+//
+//                        Float tax=Float.valueOf(taxToBeCharged.getText().toString());
+//                        Float remove=(totalAmount*tax)/100;
+//
+//                         if(taxDiscountType==0)
+//                        {
+//
+//                            totalAmount=totalAmount+tax-lastTax;
+//                            AmountToBePaid.setText(totalAmount+" ");
+//                            lastTax=tax;
+//
+//                        }
+//                        else
+//                        {
+//                            totalAmount=totalAmount+remove-lastTax;
+//                            AmountToBePaid.setText(totalAmount+" ");
+//                            lastTax=remove;
+//                            taxToBeCharged.setText(tax+"%");
+//                            taxPercentage=tax;
+//                        }
+//                    }
+//                }
+//                else {
+//                    Log.i("finish","no");
+//                }
+//            }
+//
+//        });
 
         shippingCharge.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -263,8 +265,9 @@ public class AddSalesActivity extends AppCompatActivity {
                     amountAlreadyPaid=paidAmount;
                     Float d=totalAmount-paidAmount;
                     Due.setText(d+" ");
-                    profitLeft=totalAmount-totalProfit;
-                    profit.setText(profitLeft+" ");
+//                    profitLeft=totalAmount-totalProfit;
+
+                    profit.setText(totalProfit+" ");
                 }
             }
         });
@@ -280,7 +283,7 @@ public class AddSalesActivity extends AppCompatActivity {
                 {
                     Toast.makeText(AddSalesActivity.this, "You haven't filled all details", Toast.LENGTH_SHORT).show();
                 }
-                else if(selectDiscountType==-1||taxDiscountType==-1)
+                else if(selectDiscountType==-1)
                 {
                     Toast.makeText(AddSalesActivity.this, "Select Discount And Tax Type", Toast.LENGTH_SHORT).show();
                 }
@@ -296,7 +299,7 @@ public class AddSalesActivity extends AppCompatActivity {
 
                     finalPaid = amountAlreadyPaid;
                     finaldisc = lastDiscount;
-                    finalProfit = profitLeft;
+                    finalProfit = totalProfit;
                     finalshipping = lastShippingCharge;
                     finalTotal = totalAmount;
                     finaltax = lastTax;
@@ -309,10 +312,9 @@ public class AddSalesActivity extends AppCompatActivity {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot)
                         {
-                            if(dataSnapshot.hasChild(dateFormat.format(cal.getTime())))
-                            {
+                            if(dataSnapshot.hasChild(dateFormat.format(cal.getTime()))) {
                                 dataSnapshot = dataSnapshot.child(dateFormat.format(cal.getTime()));
-                                Log.i("data",dataSnapshot.toString());
+                                Log.i("data", dataSnapshot.toString());
                                 int paid = Integer.parseInt(dataSnapshot.child("paid").getValue().toString());
                                 int profit = Integer.parseInt(dataSnapshot.child("profit").getValue().toString());
                                 int total = Integer.parseInt(dataSnapshot.child("total").getValue().toString());
@@ -320,18 +322,33 @@ public class AddSalesActivity extends AppCompatActivity {
                                 int tax = Integer.parseInt(dataSnapshot.child("tax").getValue().toString());
                                 int shipping = Integer.parseInt(dataSnapshot.child("shipping").getValue().toString());
 
-                                Log.i("paidalready",finalPaid+"");
-                                Log.i("paid",paid+"");
+                                Log.i("paidalready", finalPaid + "");
+                                Log.i("paid", paid + "");
 
-                                finalPaid = amountAlreadyPaid+ paid;
-                                finalProfit = profitLeft + profit;
+
+                                finalPaid = amountAlreadyPaid + paid;
+                                finalProfit = totalProfit + profit;
                                 finalTotal = totalAmount + total;
                                 finaldisc = lastDiscount + disc;
                                 finaltax = lastTax + tax;
                                 finalshipping = lastShippingCharge + shipping;
 
-                                Log.i("paid",finalPaid+"");
+                                DatabaseReference infoDatabase1 = FirebaseDatabase.getInstance().getReference().child("SalesInfo").
+                                        child(mAuth.getCurrentUser().getUid()).child(dateFormat.format(cal.getTime()));
+                                infoDatabase1.child("paid").setValue(finalPaid);
+                                infoDatabase1.child("profit").setValue(finalProfit);
+                                infoDatabase1.child("total").setValue(finalTotal);
+                                infoDatabase1.child("discount").setValue(finaldisc);
+                                infoDatabase1.child("tax").setValue(finaltax);
+                                infoDatabase1.child("shipping").setValue(finalshipping);
+                                infoDatabase1.child("date").setValue(dateFormat.format(cal.getTime()));
 
+
+                                Log.i("paid",finalPaid+"");
+                                Log.i("working","fine");
+
+                                Log.i("paid", finalPaid + "");
+                            }else{
 
                                 DatabaseReference infoDatabase1 = FirebaseDatabase.getInstance().getReference().child("SalesInfo").
                                         child(mAuth.getCurrentUser().getUid()).child(dateFormat.format(cal.getTime()));
@@ -347,18 +364,7 @@ public class AddSalesActivity extends AppCompatActivity {
                                 Log.i("paid",finalPaid+"");
                                 Log.i("working","fine");
                             }
-                            else
-                            {
-                                DatabaseReference infoDatabase1 = FirebaseDatabase.getInstance().getReference().child("SalesInfo").
-                                        child(mAuth.getCurrentUser().getUid()).child(dateFormat.format(cal.getTime()));
-                                infoDatabase1.child("paid").setValue(finalPaid);
-                                infoDatabase1.child("profit").setValue(finalProfit);
-                                infoDatabase1.child("total").setValue(finalTotal);
-                                infoDatabase1.child("discount").setValue(finaldisc);
-                                infoDatabase1.child("tax").setValue(finaltax);
-                                infoDatabase1.child("shipping").setValue(finalshipping);
-                                infoDatabase1.child("date").setValue(dateFormat.format(cal.getTime()));
-                            }
+
 
                         }
 
@@ -381,12 +387,12 @@ public class AddSalesActivity extends AppCompatActivity {
                     hashMap.put("DiscountPercentage",discountPercentage+"");
                     hashMap.put("Tax",lastTax+"");
                     hashMap.put("Customer",nameOfCustomer);
-                    hashMap.put("TaxType",taxDiscountType+"");
-                    hashMap.put("TaxPercentage",taxPercentage+"");
+                    //hashMap.put("TaxType",taxDiscountType+"");
+                    //hashMap.put("TaxPercentage",taxPercentage+"");
                     hashMap.put("Shipping",lastShippingCharge+"");
                     hashMap.put("Total",totalAmount+" ");
                     hashMap.put("Paid",amountAlreadyPaid+"");
-                    hashMap.put("Profit",profitLeft+"");
+                    hashMap.put("Profit",totalProfit+"");
                     hashMap.put("Note",noteOfSales.getText().toString()+"");
                     hashMap.put("Status",statusSpinner.getSelectedItem().toString());
                     database.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -407,7 +413,19 @@ public class AddSalesActivity extends AppCompatActivity {
                                     hashMap.put("Quantity",addProduct.getQuantity()+"");
                                     hashMap.put("Price",addProduct.getSellingPrice()+"");
                                     float total=addProduct.getQuantity()*addProduct.getSellingPrice();
+                                    float total1=total;
+                                    hashMap.put("TaxableValue",total+"");
+                                    hashMap.put("CGST",addProduct.getCgst());
+                                    hashMap.put("SGST",addProduct.getSgst());
+                                    hashMap.put("CESS",addProduct.getCess());
+
+                                    total=total+(Float.valueOf(addProduct.getCgst())*total)/100+(Float.valueOf(addProduct.getSgst())*total)/100;
+
+                                    Float tax=((Float.valueOf(addProduct.getCgst())+Float.valueOf(addProduct.getSgst()))*(Float.valueOf(addProduct.getCess())))/100 ;
+                                    total=total+(total1*tax)/100;
+
                                     hashMap.put("Subtotal",total+"");
+
 
                                     Log.i("success","entering");
 
@@ -416,6 +434,8 @@ public class AddSalesActivity extends AppCompatActivity {
                                         public void onComplete(@NonNull Task<Void> task) {
                                             if(task.isSuccessful())
                                             {
+
+
                                                 Intent intent=new Intent(AddSalesActivity.this,SalesActivity.class);
                                                 startActivity(intent);
                                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -643,6 +663,9 @@ public class AddSalesActivity extends AppCompatActivity {
                 int rightMargin=0;
                 int bottomMargin=0;
 
+                Float quantityAmount=0f;
+
+                DecimalFormat df = new DecimalFormat("#.00");
 
                 TableRow tr_head=new TableRow(AddSalesActivity.this);
                 tr_head.setBackgroundColor(Color.WHITE);        // part1
@@ -653,7 +676,7 @@ public class AddSalesActivity extends AppCompatActivity {
                 TextView Detail = new TextView(this);
                 Detail.setText(result.getProductName());
                 Detail.setTextColor(Color.BLACK);
-                Detail.setLayoutParams(new TableRow.LayoutParams(0,TableRow.LayoutParams.WRAP_CONTENT,1f));
+                Detail.setLayoutParams(new TableRow.LayoutParams(0,TableRow.LayoutParams.WRAP_CONTENT,2f));
                 tr_head.addView(Detail);
 
                 TextView Quantity = new TextView(this);
@@ -665,27 +688,61 @@ public class AddSalesActivity extends AppCompatActivity {
                 TextView Price = new TextView(this);
                 Price.setText(result.getSellingPrice()+" ");
                 Price.setTextColor(Color.BLACK);
-                Price.setLayoutParams(new TableRow.LayoutParams(0,TableRow.LayoutParams.WRAP_CONTENT,1f));
+                Price.setLayoutParams(new TableRow.LayoutParams(0,TableRow.LayoutParams.WRAP_CONTENT,1.1f));
                 tr_head.addView(Price);
 
-                TextView Total = new TextView(this);
 
                 Float multiply=result.getQuantity()*result.getSellingPrice();
-                Total.setText(multiply+" ");
+                quantityAmount=quantityAmount+multiply;
+
+                TextView taxableValue = new TextView(this);
+                String S = df.format(multiply);
+                multiply = Float.parseFloat(S);
+                taxableValue.setText(multiply+"");
+                taxableValue.setTextColor(Color.BLACK);
+                taxableValue.setLayoutParams(new TableRow.LayoutParams(0,TableRow.LayoutParams.WRAP_CONTENT,2.2f));
+                tr_head.addView(taxableValue);
+
+                TextView CGST = new TextView(this);
+                CGST.setText(result.getCgst()+"%");
+                CGST.setTextColor(Color.BLACK);
+                CGST.setLayoutParams(new TableRow.LayoutParams(0,TableRow.LayoutParams.WRAP_CONTENT,1.1f));
+                tr_head.addView(CGST);
+                quantityAmount=quantityAmount+(Float.valueOf(result.getCgst())*multiply)/100;
+
+                TextView SGST = new TextView(this);
+                SGST.setText(result.getSgst()+"%");
+                SGST.setTextColor(Color.BLACK);
+                SGST.setLayoutParams(new TableRow.LayoutParams(0,TableRow.LayoutParams.WRAP_CONTENT,1.1f));
+                tr_head.addView(SGST);
+                quantityAmount=quantityAmount+(Float.valueOf(result.getSgst())*multiply)/100;
+
+                TextView CESS = new TextView(this);
+                CESS.setText(result.getCess()+"%");
+                CESS.setTextColor(Color.BLACK);
+                CESS.setLayoutParams(new TableRow.LayoutParams(0,TableRow.LayoutParams.WRAP_CONTENT,1f));
+                tr_head.addView(CESS);
+                Float tax=((Float.valueOf(result.getCgst())+Float.valueOf(result.getSgst()))*(Float.valueOf(result.getCess())))/100 ;
+                quantityAmount=quantityAmount+(multiply*tax)/100;
+
+                TextView Total = new TextView(this);
+                Total.setText(quantityAmount+" ");
                 Total.setTextColor(Color.BLACK);
-                Total.setLayoutParams(new TableRow.LayoutParams(0,TableRow.LayoutParams.WRAP_CONTENT,1f));
+                Total.setLayoutParams(new TableRow.LayoutParams(0,TableRow.LayoutParams.WRAP_CONTENT,2f));
                 tr_head.addView(Total);
 
                 tableLayout.addView(tr_head, new TableLayout.LayoutParams(
                         TableLayout.LayoutParams.MATCH_PARENT,
                         TableLayout.LayoutParams.MATCH_PARENT));
 
-                totalAmount=totalAmount+multiply;
-                productAmount=productAmount+multiply;
-                total.setText(productAmount+" ");
-                AmountToBePaid.setText(totalAmount+" ");
+                totalAmount=totalAmount+quantityAmount;
+                productAmount=productAmount+quantityAmount;
+                total.setText(totalAmount+" ");
+                AmountToBePaid.setText(totalAmount+"");
 
-                totalProfit=result.getActualPrice()*result.getQuantity();
+                lastTax=lastTax+(Float.valueOf(result.getCgst())+(Float.valueOf(result.getSgst()))*multiply)/100+ ((((Float.valueOf(result.getSgst())+Float.valueOf(result.getCgst()))*(Float.valueOf(result.getCess())))/100)*multiply)/100;
+
+                totalProfit=totalProfit+result.getActualPrice()*result.getQuantity();
 
             }
             if (resultCode == Activity.RESULT_CANCELED) {

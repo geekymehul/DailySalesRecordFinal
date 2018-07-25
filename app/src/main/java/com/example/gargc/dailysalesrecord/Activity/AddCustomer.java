@@ -30,7 +30,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class AddCustomer extends AppCompatActivity {
 
-    EditText name,phoneNumber,customerEmail,amountPaid,notes,address;
+    EditText name,phoneNumber,customerEmail,GSTIN,notes,address;
 
     Button button;
     private ProgressBar progressBar;
@@ -39,7 +39,7 @@ public class AddCustomer extends AppCompatActivity {
 
     Uri mImageUri=null;
 
-    private String customerName,customerEmailId,customerAmountPaid="0",customerNotes=" ",customerPhoneNumber,customerAddress;
+    private String customerName,customerEmailId,customerGstNumber="",customerNotes=" ",customerPhoneNumber,customerAddress;
 
     ImageView circleImageView;
 
@@ -58,7 +58,7 @@ public class AddCustomer extends AppCompatActivity {
         name=(EditText) findViewById(R.id.customerName);
         phoneNumber=(EditText) findViewById(R.id.customerphoneNumber);
         customerEmail =(EditText) findViewById(R.id.customerEmailId);
-        amountPaid=(EditText) findViewById(R.id.customerAmountPaid);
+        GSTIN=(EditText) findViewById(R.id.customerAmountPaid);
         notes=(EditText) findViewById(R.id.customerNotes);
         address=(EditText) findViewById(R.id.customermailingaddress);
         progressBar = (ProgressBar) findViewById(R.id.progress);
@@ -74,7 +74,7 @@ public class AddCustomer extends AppCompatActivity {
             public void onClick(View view) {
                 customerName=name.getText().toString().trim();
                 customerEmailId=customerEmail.getText().toString().trim().toLowerCase();
-                customerAmountPaid=amountPaid.getText().toString().trim();
+                customerGstNumber=GSTIN.getText().toString().trim();
                 customerNotes=notes.getText().toString().trim();
                 customerPhoneNumber=phoneNumber.getText().toString();
                 customerAddress=address.getText().toString();
@@ -100,6 +100,11 @@ public class AddCustomer extends AppCompatActivity {
                 {
                     Toast.makeText(AddCustomer.this, "Add Address", Toast.LENGTH_SHORT).show();
                     address.requestFocus();
+                }
+                else if(customerGstNumber.equals(""))
+                {
+                    Toast.makeText(AddCustomer.this, "Please enter customer GST number", Toast.LENGTH_SHORT).show();
+                    GSTIN.requestFocus();
                 }
                 else {
                     toggleViews(false);
@@ -151,7 +156,7 @@ public class AddCustomer extends AppCompatActivity {
                     userReqMap.put("CustomerName", customerName);
                     userReqMap.put("EmailId", customerEmailId);
                     userReqMap.put("PhoneNumber", customerPhoneNumber);
-                    userReqMap.put("AmountPaid", customerAmountPaid);
+                    userReqMap.put("GSTNumber", customerGstNumber);
                     userReqMap.put("Notes", customerNotes);
                     userReqMap.put("Image", imgUri.toString());
                     userReqMap.put("Address",customerAddress);
@@ -193,7 +198,7 @@ public class AddCustomer extends AppCompatActivity {
         name.setEnabled(enabled);
         customerEmail.setEnabled(enabled);
         phoneNumber.setEnabled(enabled);
-        amountPaid.setEnabled(enabled);
+        GSTIN.setEnabled(enabled);
         notes.setEnabled(enabled);
 
     }

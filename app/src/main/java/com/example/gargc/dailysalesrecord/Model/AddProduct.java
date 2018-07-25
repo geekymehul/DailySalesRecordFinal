@@ -12,6 +12,8 @@ public class AddProduct implements Serializable {
     private float Quantity;
     private Float actualPrice,sellingPrice,profit;
 
+    private String cgst,sgst,cess;
+
 
     public String getProductName() {
         return productName;
@@ -51,5 +53,29 @@ public class AddProduct implements Serializable {
 
     public void setProfit(Float profit) {
         this.profit = profit;
+    }
+
+    public String getCgst() {
+        return cgst;
+    }
+
+    public void setCgst(String cgst) {
+        this.cgst = cgst;
+    }
+
+    public String getSgst() {
+        return sgst;
+    }
+
+    public void setSgst(String sgst) {
+        this.sgst = sgst;
+    }
+
+    public String getCess() {
+        return cess;
+    }
+
+    public void setCess(String cess) {
+        this.cess = cess;
     }
 }

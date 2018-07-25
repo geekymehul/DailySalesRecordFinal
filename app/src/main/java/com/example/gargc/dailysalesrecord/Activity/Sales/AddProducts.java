@@ -110,6 +110,9 @@ public class AddProducts extends AppCompatActivity {
                     addProduct.setActualPrice(Float.valueOf(productactualprice.getText().toString()));
                     addProduct.setSellingPrice( Float.valueOf(productsellingprice.getText().toString()));
                     addProduct.setProfit(Float.valueOf(productsellingprice.getText().toString()) - Float.valueOf(productactualprice.getText().toString()));
+                    addProduct.setCgst(list.get(clickedPosition).getCgst());
+                    addProduct.setSgst(list.get(clickedPosition).getSgst());
+                    addProduct.setCess(list.get(clickedPosition).getCess());
 
                     Intent returnIntent = new Intent();
                     returnIntent.putExtra("result",addProduct);

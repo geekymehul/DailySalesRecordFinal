@@ -81,7 +81,7 @@ public class EditCustomer extends AppCompatActivity {
         name.setText(customerContent.getCustomerName());
         phoneNumber.setText(customerContent.getPhoneNumber());
         customerEmail.setText(customerContent.getEmailId());
-        amountPaid.setText(customerContent.getAmountPaid());
+        amountPaid.setText(customerContent.getGSTNumber());
         notes.setText(customerContent.getNotes());
         address.setText(customerContent.getAddress());
 

@@ -11,7 +11,7 @@ public class CustomerContent implements Serializable {
     private String CustomerName;
     private  String EmailId;
     private  String PhoneNumber;
-    private String AmountPaid;
+    private String GSTNumber;
     private String Notes;
     private String Image;
     private String Address;
@@ -50,16 +50,17 @@ public class CustomerContent implements Serializable {
         PhoneNumber = phoneNumber;
     }
 
-    public String getAmountPaid() {
-        return AmountPaid;
-    }
-
-    public void setAmountPaid(String amountPaid) {
-        AmountPaid = amountPaid;
-    }
 
     public String getNotes() {
         return Notes;
+    }
+
+    public String getGSTNumber() {
+        return GSTNumber;
+    }
+
+    public void setGSTNumber(String GSTNumber) {
+        this.GSTNumber = GSTNumber;
     }
 
     public void setNotes(String notes) {
