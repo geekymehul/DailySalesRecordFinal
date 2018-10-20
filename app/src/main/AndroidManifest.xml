@@ -40,10 +40,13 @@
         <activity android:name=".Activity.AddProductActivity" />
         <activity android:name=".Activity.EditProductActivity" />
         <activity android:name=".Activity.Sales.SalesActivity" />
-        <activity android:screenOrientation="landscape" android:name=".Activity.Sales.AddSalesActivity" />
+        <activity
+            android:name=".Activity.Sales.AddSalesActivity"
+            android:screenOrientation="landscape" />
         <activity android:name=".Activity.Sales.AddProducts" />
         <activity android:name=".Activity.Sales.SalesItemInfoActivity" />
-        <activity android:name=".Activity.Sales.CustomerSaleReportActivity"></activity>
+        <activity android:name=".Activity.Sales.CustomerSaleReportActivity" />
+        <activity android:name=".Reports.ReportsActivity"></activity>
     </application>
 
 </manifest>

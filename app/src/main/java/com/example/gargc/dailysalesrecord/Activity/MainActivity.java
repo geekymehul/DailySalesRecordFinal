@@ -2,7 +2,6 @@ package com.example.gargc.dailysalesrecord.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -16,13 +15,14 @@ import android.widget.RelativeLayout;
 
 import com.example.gargc.dailysalesrecord.Activity.Sales.SalesActivity;
 import com.example.gargc.dailysalesrecord.R;
+import com.example.gargc.dailysalesrecord.Reports.ReportsActivity;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener
 {
     FirebaseAuth mAuth;
-    RelativeLayout customer,product,sales;
+    RelativeLayout customer,product,sales,reports;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -57,7 +57,8 @@ public class MainActivity extends AppCompatActivity
     {
         customer = (RelativeLayout)findViewById(R.id.mainactivity_customer);
         product = (RelativeLayout)findViewById(R.id.mainactivity_product);
-        sales=(RelativeLayout) findViewById(R.id.mainactivity_sales);
+        sales = (RelativeLayout) findViewById(R.id.mainactivity_sales);
+        reports = (RelativeLayout) findViewById(R.id.mainactivity_reports);
     }
 
     @Override
@@ -84,6 +85,13 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MainActivity.this,SalesActivity.class));
+            }
+        });
+
+        reports.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this,ReportsActivity.class));
             }
         });
     }

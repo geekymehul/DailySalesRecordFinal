@@ -145,7 +145,8 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/border">
+                    android:background="@drawable/border"
+                    android:id="@+id/mainactivity_reports">
                     <ImageView
                         android:id="@+id/flag3"
                         android:layout_width="fill_parent"
