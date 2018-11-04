@@ -55,22 +55,43 @@ public class LineChartFragment extends Fragment
         labels = new ArrayList<>();
         salesDatabase = FirebaseDatabase.getInstance().getReference().child("SalesInfo").child(mAuth.getCurrentUser().getUid());
 
+        chart = view.findViewById(R.id.linechart);
+
         salesDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot)
             {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren())
                 {
-                    int data = Integer.parseInt(snapshot.child("total").getValue()+"");
+                    float d = Float.parseFloat(snapshot.child("total").getValue()+"");
+                    int data = (int)d;
                     String date = snapshot.child("date").getValue()+"";
 
                     Log.i("going","going");
                     Log.i("data",data+"");
 
-                    records.add(new Entry(c,data));
+                    records.add(new Entry(data,c));
+
+                    Log.i("records",""+records.toString());
+
+                    Log.i("this","1");
+
                     labels.add(date);
                     c++;
                 }
+
+                Log.i("size",records.size()+"");
+
+                Log.i("this","2");
+                LineDataSet dataSet = new LineDataSet(records, "sales");
+                dataSet.setColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
+                dataSet.setValueTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimaryDark));
+
+                // Setting Data
+                LineData data = new LineData(labels,dataSet);
+                chart.setData(data);
+
+
             }
 
             @Override
@@ -79,16 +100,27 @@ public class LineChartFragment extends Fragment
             }
         });
 
-        chart = view.findViewById(R.id.linechart);
 
-        LineDataSet dataSet = new LineDataSet(records, "sales");
-        dataSet.setColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
-        dataSet.setValueTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimaryDark));
+        /*records.add(new Entry(1200,1));
+        records.add(new Entry(890,2));
+        records.add(new Entry(1050,3));
+        records.add(new Entry(1320,4));
+        records.add(new Entry(1900,5));
+        records.add(new Entry(670,6));
+        records.add(new Entry(1100,7));
+        records.add(new Entry(1670,9));
 
-        // Setting Data
-        LineData data = new LineData(labels,dataSet);
-        chart.setData(data);
-        chart.animateX(2500);
+        labels.add("10");
+        labels.add("12");
+        labels.add("15");
+        labels.add("18");
+        labels.add("20");
+        labels.add("23");
+        labels.add("28");
+        labels.add("31");
+*/
+
+        //chart.animateX(2500);
 
 
         return view;

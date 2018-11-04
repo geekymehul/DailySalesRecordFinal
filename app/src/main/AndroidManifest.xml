@@ -42,7 +42,7 @@
         <activity android:name=".Activity.Sales.SalesActivity" />
         <activity
             android:name=".Activity.Sales.AddSalesActivity"
-            android:screenOrientation="landscape" />
+             />
         <activity android:name=".Activity.Sales.AddProducts" />
         <activity android:name=".Activity.Sales.SalesItemInfoActivity" />
         <activity android:name=".Activity.Sales.CustomerSaleReportActivity" />
