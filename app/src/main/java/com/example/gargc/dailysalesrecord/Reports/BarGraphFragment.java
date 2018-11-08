@@ -63,58 +63,58 @@ public class BarGraphFragment extends Fragment {
 
                 Log.i("map",map.toString());
                 Log.i("productlist",productList.toString());
-            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-        productDatabase = FirebaseDatabase.getInstance().getReference().child("Sales").child(mAuth.getCurrentUser().getUid());
-        productDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot)
-            {
-
-                for (DataSnapshot snapshot : dataSnapshot.getChildren())
-                {
-                    for (DataSnapshot shot : snapshot.getChildren())
+                productDatabase = FirebaseDatabase.getInstance().getReference().child("Sales").child(mAuth.getCurrentUser().getUid());
+                productDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot)
                     {
-                        DataSnapshot cur = shot.child("ProductsSold");
-                        for (DataSnapshot p : cur.getChildren())
+
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren())
                         {
-                            String pn = p.child("ProductName").getValue().toString();
-                            float pq = Float.parseFloat(p.child("Quantity").getValue().toString());
-                            float k = map.get(pn);
-                            k = k+pq;
-                            int q = (int)k;
-                            map.put(pn,q);
+                            for (DataSnapshot shot : snapshot.getChildren())
+                            {
+                                DataSnapshot cur = shot.child("ProductsSold");
+                                for (DataSnapshot p : cur.getChildren())
+                                {
+                                    String pn = p.child("ProductName").getValue().toString();
+                                    float pq = Float.parseFloat(p.child("Quantity").getValue().toString());
+                                    float k = map.get(pn);
+                                    k = k+pq;
+                                    int q = (int)k;
+                                    map.put(pn,q);
+                                }
+                            }
                         }
+
+                        Log.i("map",map.toString());
+
+                        productList = new ArrayList<String>(map.keySet());
+                        productSales = new ArrayList<Integer>(map.values());
+
+                        Log.i("array",productList.toString());
+                        Log.i("array",productSales.toString());
+
+                        //-------------------BAR GRAPH--------------------
+                        ArrayList<BarEntry> bargroup1 = new ArrayList<>();
+                        int c=0;
+                        for(int i=0;i<productSales.size();i++)
+                            bargroup1.add(new BarEntry(productSales.get(i),c++));
+
+                        BarDataSet barDataSet1 = new BarDataSet(bargroup1, "actual sales");
+                        BarData data = new BarData(productList,barDataSet1);
+                        barDataSet1.setColors(ColorTemplate.COLORFUL_COLORS);
+
+                        barChart.setDescription("Product-wise sales");
+                        barChart.setData(data);
+
                     }
-                }
 
-                Log.i("map",map.toString());
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
 
-                productList = new ArrayList<String>(map.keySet());
-                productSales = new ArrayList<Integer>(map.values());
-
-                Log.i("array",productList.toString());
-                Log.i("array",productSales.toString());
-
-                //-------------------BAR GRAPH--------------------
-                ArrayList<BarEntry> bargroup1 = new ArrayList<>();
-                int c=0;
-                for(int i=0;i<productSales.size();i++)
-                    bargroup1.add(new BarEntry(productSales.get(i),c++));
-
-                BarDataSet barDataSet1 = new BarDataSet(bargroup1, "actual sales");
-                BarData data = new BarData(productList,barDataSet1);
-                barDataSet1.setColors(ColorTemplate.COLORFUL_COLORS);
-
-                barChart.setDescription("Product-wise sales");
-                barChart.setData(data);
-
+                    }
+                });
             }
 
             @Override
@@ -122,6 +122,7 @@ public class BarGraphFragment extends Fragment {
 
             }
         });
+
 
 
         return view;
