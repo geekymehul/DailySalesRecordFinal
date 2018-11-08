@@ -76,7 +76,10 @@ public class LineChartFragment extends Fragment
 
                     Log.i("this","1");
 
-                    labels.add(date);
+                    String d2[] = date.split("-");
+                    String d3 = d2[2]+"-"+d2[1]+"-"+d2[0];
+
+                    labels.add(d3);
                     c++;
                 }
 
