@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.RelativeLayout;
 
+import com.example.gargc.dailysalesrecord.Activity.FutureSales.FutureSalesActivity;
 import com.example.gargc.dailysalesrecord.Activity.Sales.SalesActivity;
 import com.example.gargc.dailysalesrecord.R;
 import com.example.gargc.dailysalesrecord.Reports.ReportsActivity;
@@ -22,7 +23,7 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener
 {
     FirebaseAuth mAuth;
-    RelativeLayout customer,product,sales,reports;
+    RelativeLayout customer,product,sales,reports,forecast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -59,6 +60,7 @@ public class MainActivity extends AppCompatActivity
         product = (RelativeLayout)findViewById(R.id.mainactivity_product);
         sales = (RelativeLayout) findViewById(R.id.mainactivity_sales);
         reports = (RelativeLayout) findViewById(R.id.mainactivity_reports);
+        forecast = (RelativeLayout)findViewById(R.id.mainactivity_forecast);
     }
 
     @Override
@@ -92,6 +94,13 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MainActivity.this,ReportsActivity.class));
+            }
+        });
+
+        forecast.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this,FutureSalesActivity.class));
             }
         });
     }
